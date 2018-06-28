@@ -7,6 +7,13 @@ if (process.env.NODE_ENV !== 'production') {
   console.log('Looks like we are in development mode!');
 }
 
+// dynamic loading
+import(/* webpackChunkName: "immutable" */ 'immutable').then(function(Immutable) {
+  console.log('import immutable!!!');
+  const map = Immutable.fromJS({'a':1, 'b':2});
+  console.log(map);
+}).catch(e => console.log('immutable error', e));
+
 function component() {
   var element = document.createElement('div');
   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
