@@ -34,7 +34,18 @@ module.exports = {
   	  {
   	  	test: /\.(woff|woff2|eot|ttf|otf)$/,
   	  	use: ['file-loader']
-  	  }
+  	  },
+			{
+        test: /\.(js|jsx)$/,
+        include: path.resolve(__dirname, 'src'),
+        use: [{
+          loader: 'babel-loader',
+					// .babelrc instead of below
+          // options: {
+          //   presets: ['env']
+          // }
+        }]
+			}
   	]
   }
 };
