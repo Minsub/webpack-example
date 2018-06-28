@@ -7,11 +7,6 @@ module.exports = {
   entry: {
   	app: './src/index.js'
 	},
-  devtool: 'inline-source-map',
-	devServer: {
-  	contentBase: './dist',
-		hot: true
-	},
 	plugins: [
 		new CleanWebpackPlugin(['dist']),
 		new HtmlWebpackPlugin({
