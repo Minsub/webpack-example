@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -12,21 +13,28 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(['dist']),
 		new HtmlWebpackPlugin({
-			title: 'Title by Webpack config'
+			title: 'Title by Webpack config',
 		}),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+		new ExtractTextPlugin({
+			filename: '[name].[hash:8].css'
+		})
 	],
   output: {
     filename: '[name].[hash:8].js',
+    chunkFilename: '[name].[hash:8].chunk.s',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
   module: {
   	rules: [
-  	  {
-  	  	test: /\.css$/,
-  	  	use: ['style-loader','css-loader']
-  	  }, 
+      {
+        test: /\.css$/,
+				loader: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: 'css-loader'
+				})
+			},
   	  {
   	  	test: /\.(png|svg|jpg|gif)$/,
   	  	use: ['file-loader']
@@ -47,5 +55,5 @@ module.exports = {
         }]
 			}
   	]
-  }
+  },
 };
