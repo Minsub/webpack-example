@@ -5,7 +5,9 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-  	app: './src/index.js'
+  	// polyfills: './src/polyfills.js',
+  	// app: './src/index.js'
+		app: ['./src/polyfills.js', './src/index.js']
 	},
 	plugins: [
 		new CleanWebpackPlugin(['dist']),
@@ -15,7 +17,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
 	],
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].[hash:8].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
